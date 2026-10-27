@@ -24,7 +24,7 @@ export class Vector2 {
     }
 
     normalize(): Vector2 {
-        var length: number = this.length()
+        const length: number = this.length()
         if (length === 0) {return Vector2.ZERO}
         return this.multiply(1/length)
     }

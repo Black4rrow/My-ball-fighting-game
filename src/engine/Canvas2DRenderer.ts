@@ -1,8 +1,8 @@
-import { WORLD_SIZE } from "../engine/Constants";
-import { Vector2 } from "../engine/Vector2";
-import type { World } from "../engine/World";
-import type { Ball } from "./Ball";
-import type RendererInterface from "./RendererInterface";
+import { WORLD_SIZE } from "./Constants";
+import { Vector2 } from "./Vector2";
+import type { World } from "./World";
+import type { Ball } from "../model/Ball";
+import type RendererInterface from "../model/RendererInterface";
 
 export default class Canvas2DRenderer implements RendererInterface {
     canvas: HTMLCanvasElement | undefined = undefined
@@ -25,7 +25,7 @@ export default class Canvas2DRenderer implements RendererInterface {
         const context: CanvasRenderingContext2D = this.context
 
 
-        context.clearRect(0,0,world.worldSize.x, world.worldSize.y)
+        context.clearRect(0, 0, WORLD_SIZE, WORLD_SIZE)
         balls.forEach(ball => {
             this.drawBall(context, ball)
         });

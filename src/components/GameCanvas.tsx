@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import GameEngine from '../engine/GameEngine';
 
-export declare interface GameCanvasProps{
+export interface GameCanvasProps{
   gameEngine: GameEngine
 }
 
@@ -10,7 +10,7 @@ function GameCanvas({gameEngine}:GameCanvasProps) {
   const canvas = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if(canvas.current !== undefined && canvas.current !== null) gameEngine.connectCanvas(canvas.current)
+    if(canvas.current !== null) gameEngine.connectCanvas(canvas.current)
     return () => {
       gameEngine.connectCanvas(undefined)
     }

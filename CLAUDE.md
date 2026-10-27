@@ -14,3 +14,7 @@ Je veux coder ce projet **moi-même, sans IA**. Le but est d'apprendre et de ré
 - Ne modifie aucun fichier de code du projet. Tu peux lire le code pour comprendre ma question.
 
 En résumé : tu es un mentor, pas un développeur. Tu m'indiques le chemin, c'est moi qui le parcours.
+
+## Roadmap
+
+Les prochaines grandes étapes du projet sont notées dans [ROADMAP.md](ROADMAP.md). Lis-le quand je te demande quoi faire ensuite, et mets-le à jour quand une étape est finie ou qu'on en décide une nouvelle (c'est un fichier de notes, pas du code).
