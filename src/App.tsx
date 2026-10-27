@@ -1,11 +1,14 @@
 import { useRef } from "react";
 import GameCanvas from "./components/GameCanvas";
 import GameEngine from "./engine/GameEngine";
+import type RendererInterface from "./model/RendererInterface";
+import Canvas2DRenderer from "./model/Canvas2DRenderer";
 
 function App() {
   const gameEngineRef = useRef<GameEngine>(null);
   if (gameEngineRef.current === null) {
-    gameEngineRef.current = new GameEngine();
+    const renderer: RendererInterface = new Canvas2DRenderer
+    gameEngineRef.current = new GameEngine(renderer);
   }
   const gameEngine = gameEngineRef.current
   return (

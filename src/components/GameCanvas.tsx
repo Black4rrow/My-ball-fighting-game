@@ -10,9 +10,9 @@ function GameCanvas({gameEngine}:GameCanvasProps) {
   const canvas = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    gameEngine.plugCanvas(canvas.current? canvas.current : undefined)
+    if(canvas.current !== undefined && canvas.current !== null) gameEngine.connectCanvas(canvas.current)
     return () => {
-      gameEngine.plugCanvas(undefined)
+      gameEngine.connectCanvas(undefined)
     }
   }, [gameEngine])
   return (

@@ -1,11 +1,13 @@
 import { Ball } from "../model/Ball";
+import Canvas2DRenderer from "../model/Canvas2DRenderer";
+import type RendererInterface from "../model/RendererInterface";
 import { WORLD_SIZE } from "./Constants";
 import { Vector2 } from "./Vector2";
 import { World } from "./World";
 
 class GameEngine {
     canvas: HTMLCanvasElement | undefined
-    private context: CanvasRenderingContext2D | null = null
+    renderer: RendererInterface
     world: World = new World
     balls: Ball[] = []
 
@@ -14,27 +16,23 @@ class GameEngine {
         return this.gamePaused_
     }
 
-    constructor() {
+    constructor(renderer: RendererInterface) {
+        this.renderer = renderer
         console.log("===== GameEngine construit =====")
-        let testBall = new Ball(new Vector2(Math.random()*(WORLD_SIZE-100), Math.random()*(WORLD_SIZE-100)))
+        const testBall = new Ball(new Vector2(Math.random()*(WORLD_SIZE-100), Math.random()*(WORLD_SIZE-100)))
         testBall.direction = new Vector2(Math.random(), Math.random())
         this.addBall(testBall)
 
-        let testBall2 = new Ball(new Vector2(Math.random()*(WORLD_SIZE-100), Math.random()*(WORLD_SIZE-100)))
-        testBall.direction = new Vector2(Math.random(), Math.random())
+        const testBall2 = new Ball(new Vector2(Math.random()*(WORLD_SIZE-100), Math.random()*(WORLD_SIZE-100)))
+        testBall2.direction = new Vector2(Math.random(), Math.random())
         this.addBall(testBall2)
     }
 
-
-    plugCanvas(canvas: HTMLCanvasElement | undefined) {
-        this.canvas = canvas
-        if (canvas !== undefined) {
-            canvas.width = WORLD_SIZE
-            canvas.height = WORLD_SIZE
-            this.world.worldSize = new Vector2(WORLD_SIZE, WORLD_SIZE)
-            this.context = canvas.getContext("2d")
+    connectCanvas(canvas: HTMLCanvasElement | undefined){
+        if(canvas === undefined){
+            this.renderer.onCanvasDisconnected()
         }else{
-            this.context = null
+            this.renderer.onCanvasConnected(canvas)
         }
     }
 
@@ -87,7 +85,7 @@ class GameEngine {
             this.time += this.dt
         }
 
-        this.render()
+        this.renderer.onFrame(this.world, this.balls)
         this.loopId = requestAnimationFrame(() => {this.gameLoop()})
     }
 
@@ -95,17 +93,6 @@ class GameEngine {
         this.balls.forEach(ball => {
             ball.step(dt, this.world)
         });
-    }
-
-    render() {
-        if (this.canvas !== undefined && this.context !== null) {
-            const context = this.context
-
-            context.clearRect(0,0,this.world.worldSize.x, this.world.worldSize.y)
-            this.balls.forEach(ball => {
-                ball.render(context)
-            });
-        }
     }
 }
 

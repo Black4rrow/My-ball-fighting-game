@@ -21,16 +21,6 @@ export class Ball {
         this.direction = this.direction.add(new Vector2(0, GRAVITY))
         this.center = this.center.add(this.direction.multiply(this.speed * dt))
     }
-
-    render(ctx: CanvasRenderingContext2D): void {
-        ctx.beginPath()
-        ctx.ellipse(this.center.x, this.center.y, this.radius, this.radius, 0, 0, 2*Math.PI)
-        ctx.fillStyle = this.color.toString()
-        ctx.strokeStyle = '#000000'
-        ctx.stroke()
-        ctx.fill()
-        ctx.closePath()
-    }
 }
 
 export interface BallModule {
