@@ -16,9 +16,13 @@ class GameEngine {
 
     constructor() {
         console.log("===== GameEngine construit =====")
-        let testBall = new Ball(new Vector2(500, 500))
-        testBall.direction = new Vector2(1,0)
+        let testBall = new Ball(new Vector2(Math.random()*(WORLD_SIZE-100), Math.random()*(WORLD_SIZE-100)))
+        testBall.direction = new Vector2(Math.random(), Math.random())
         this.addBall(testBall)
+
+        let testBall2 = new Ball(new Vector2(Math.random()*(WORLD_SIZE-100), Math.random()*(WORLD_SIZE-100)))
+        testBall.direction = new Vector2(Math.random(), Math.random())
+        this.addBall(testBall2)
     }
 
 

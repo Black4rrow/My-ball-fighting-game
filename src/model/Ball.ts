@@ -1,3 +1,4 @@
+import Color from "ts-color-class";
 import { GRAVITY } from "../engine/Constants";
 import { Vector2 } from "../engine/Vector2";
 import { World } from "../engine/World";
@@ -7,6 +8,8 @@ export class Ball {
     direction: Vector2 = Vector2.ZERO
     speed: number = 150
     radius: number = 50
+
+    color: Color = new Color('#FF0000')
 
     public constructor(center: Vector2) {
         this.center = center
@@ -22,6 +25,9 @@ export class Ball {
     render(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath()
         ctx.ellipse(this.center.x, this.center.y, this.radius, this.radius, 0, 0, 2*Math.PI)
+        ctx.fillStyle = this.color.toString()
+        ctx.strokeStyle = '#000000'
+        ctx.stroke()
         ctx.fill()
         ctx.closePath()
     }
