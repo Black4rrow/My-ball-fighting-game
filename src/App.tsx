@@ -34,7 +34,7 @@ function App() {
         </button>
         <div className="w-full border border-b-gray-800 my-2"></div>
         <section className="">
-          <p className="underline">Balls informations</p>
+          <p className="font-bold text-center text-lg">=====|  Balls informations  |=====</p>
           <div className="flex flex-row gap-1">
             {gameEngine.world.balls.map((ball) => (
               <BallInfo key={ball.id} ball={ball} />

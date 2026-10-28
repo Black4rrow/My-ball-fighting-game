@@ -4,7 +4,7 @@ import type RendererInterface from "../model/RendererInterface";
 import { WORLD_SIZE } from "./Constants";
 import { Vector2 } from "./Vector2";
 import { World } from "./World";
-import { SpeedModule } from "../model/BallModules";
+import { ContactDamageModule, SpeedModule } from "../model/BallModules";
 
 class GameEngine {
     renderer: RendererInterface
@@ -19,12 +19,16 @@ class GameEngine {
         this.renderer = renderer
         const testBall = new Ball(new Vector2(Math.random()*(WORLD_SIZE-100), Math.random()*(WORLD_SIZE-100)))
         testBall.velocity = new Vector2((Math.random() - 0.5) * 1000, (Math.random() - 0.5) * 1000)
+        testBall.name = "Dummy Ball"
+        testBall.setMaxHealth(999999)
         this.addBall(testBall)
 
         const testBall2 = new Ball(new Vector2(Math.random()*(WORLD_SIZE-100), Math.random()*(WORLD_SIZE-100)))
         testBall2.velocity = new Vector2((Math.random() - 0.5) * 2000, (Math.random() - 0.5) * 2000)
         testBall2.color = new Color('#00ee22')
         testBall2.modules.push(new SpeedModule)
+        testBall2.modules.push(new ContactDamageModule)
+        testBall2.name = "Speedy Ball"
         this.addBall(testBall2)
     }
 

@@ -23,6 +23,14 @@ export class Vector2 {
         return Math.hypot(this.x, this.y)
     }
 
+    constraintLength(lengthSize: number): Vector2{
+        const ratio: number = this.length() / lengthSize
+        if(ratio > 1){
+            return this.multiply(1/ratio)
+        }
+        return this
+    }
+
     normalize(): Vector2 {
         const length: number = this.length()
         if (length === 0) {return Vector2.ZERO}

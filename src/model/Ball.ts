@@ -4,13 +4,16 @@ import { Vector2 } from "../engine/Vector2";
 import { World } from "../engine/World";
 import type { BallModule } from "./BallModules";
 import {v4} from 'uuid';
+import uiObserver from "./UIObserver";
 
 export class Ball{
     id: string = v4()
+    name: string = "[Default Ball Name]"
     center: Vector2
-    velocity: Vector2 = Vector2.ZERO
     radius: number = 50
     mass: number = 1
+    
+    velocity: Vector2 = Vector2.ZERO
 
     maxHealth: number = 100
     health: number = this.maxHealth
@@ -33,5 +36,25 @@ export class Ball{
         for (const module of this.modules){
             action(module)
         }
+    }
+
+    setMaxHealth(maxHealth: number, updateHealth: boolean = true){
+        this.maxHealth = maxHealth
+        if(updateHealth){this.health = maxHealth}
+    }
+
+    setMass(newValue: number){
+        this.mass = Math.max(newValue, 0.02)
+    }
+
+    addVelocity(multiplier: number){
+        const newVelocity =  this.velocity.multiply(1 + multiplier)
+        this.velocity = newVelocity.constraintLength(12500)
+    }
+
+    damage(value: number){
+        this.health -= value
+        this.callEachModule(module => module.onDamaged?.(this, value))
+        uiObserver.emit()
     }
 }
