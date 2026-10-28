@@ -37,6 +37,10 @@ export class Vector2 {
         return Math.pow((target.x - this.x),2) + Math.pow((target.y - this.y),2)
     }
 
+    dotProduct(target: Vector2): number {
+        return this.x * target.x + this.y * target.y    
+    }
+
     static UP = new Vector2(0, -1);
     static DOWN = new Vector2(0, 1);
     static LEFT = new Vector2(-1, 0);

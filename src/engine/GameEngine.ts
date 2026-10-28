@@ -1,3 +1,4 @@
+import Color from "ts-color-class";
 import { Ball } from "../model/Ball";
 import type RendererInterface from "../model/RendererInterface";
 import { WORLD_SIZE } from "./Constants";
@@ -7,7 +8,6 @@ import { World } from "./World";
 class GameEngine {
     renderer: RendererInterface
     world: World = new World
-    balls: Ball[] = []
 
     private gamePaused_: boolean = true
     get gamePaused() {
@@ -23,6 +23,7 @@ class GameEngine {
 
         const testBall2 = new Ball(new Vector2(Math.random()*(WORLD_SIZE-100), Math.random()*(WORLD_SIZE-100)))
         testBall2.velocity = new Vector2((Math.random() - 0.5) * 2000, (Math.random() - 0.5) * 2000)
+        testBall2.color = new Color('#00ee22')
         this.addBall(testBall2)
     }
 
@@ -35,10 +36,10 @@ class GameEngine {
     }
 
     addBall(ball: Ball) {
-        this.balls.push(ball)
+        this.world.balls.push(ball)
         console.log("===== Balle ajoutée =====")
     }
-    clearBalls() { this.balls = [] }
+    clearBalls() { this.world.balls = [] }
 
     togglePause(value: boolean) {
         this.gamePaused_ = value
@@ -83,12 +84,13 @@ class GameEngine {
             this.time += this.dt
         }
 
-        this.renderer.onFrame(this.world, this.balls)
+        this.renderer.onFrame(this.world, this.world.balls)
         this.loopId = requestAnimationFrame(() => {this.gameLoop()})
     }
 
     step(dt: number) {
-        this.balls.forEach(ball => {
+        this.world.step(dt)
+        this.world.balls.forEach(ball => {
             ball.step(dt, this.world)
         });
     }

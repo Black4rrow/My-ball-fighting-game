@@ -20,7 +20,7 @@ export default class PixiRenderer implements RendererInterface {
         renderer.init(
             {
                 canvas: canvas,
-                background: '#001111',
+                background: '#696969',
                 width: WORLD_SIZE,
                 height: WORLD_SIZE
             }
