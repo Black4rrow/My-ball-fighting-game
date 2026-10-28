@@ -3,7 +3,7 @@ import { Vector2 } from "./Vector2";
 
 export class World {
     balls: Ball[] = []
-    gravity: Vector2 = new Vector2(0, 350)
+    gravity: Vector2 = new Vector2(0, 5)
 
     step(dt: number) {
         this.checkForBallsCollisions()

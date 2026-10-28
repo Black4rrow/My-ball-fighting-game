@@ -41,6 +41,13 @@ export class Vector2 {
         return this.x * target.x + this.y * target.y    
     }
 
+    constraint(minX: number, maxX: number, minY: number, maxY: number): Vector2 {
+        return new Vector2(
+            Math.min(maxX, Math.max(minX, this.x)),
+            Math.min(maxY, Math.max(minY, this.y)),
+        )
+    }
+
     static UP = new Vector2(0, -1);
     static DOWN = new Vector2(0, 1);
     static LEFT = new Vector2(-1, 0);

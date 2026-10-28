@@ -9,7 +9,9 @@ export interface BallModule {
 }
 
 export class SpeedModule implements BallModule {
+    multiplier: number = 0.1
+
     onCollide(ball: Ball, target: Ball){
-        ball.velocityMultiplier += 0.1
+        ball.velocity = ball.velocity.multiply(1 + this.multiplier)
     }
 }

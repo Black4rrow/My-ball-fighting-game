@@ -20,7 +20,7 @@ export default class PixiRenderer implements RendererInterface {
         renderer.init(
             {
                 canvas: canvas,
-                background: '#696969',
+                background: '#677f76',
                 width: WORLD_SIZE,
                 height: WORLD_SIZE
             }
@@ -57,7 +57,6 @@ export default class PixiRenderer implements RendererInterface {
     }
 
     createBallView(ball: Ball) {
-        console.log(" ----- Creating ball -----")
         const container = new Container
         const ballGraphics = new Graphics()
             .circle(0, 0, ball.radius)
@@ -71,7 +70,6 @@ export default class PixiRenderer implements RendererInterface {
     }
 
     updateBallViewPosition(ball: Ball, container: Container) {
-        console.log(" ----- Updating ball -----")
         container.position.set(ball.center.x, ball.center.y)
     }
 
@@ -81,7 +79,6 @@ export default class PixiRenderer implements RendererInterface {
         const set: Set<Ball> = new Set(balls)
         this.ballsMap.forEach((container: Container, ball: Ball) => {
             if (!set.has(ball)) {
-                console.log(" ----- Deleting ball -----")
                 scene.removeChild(container)
                 container.destroy()
                 this.ballsMap.delete(ball)
