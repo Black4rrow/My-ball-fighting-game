@@ -1,9 +1,10 @@
 import { Ball } from "../model/Ball";
+import uiObserver from "../model/UIObserver";
 import { Vector2 } from "./Vector2";
 
 export class World {
     balls: Ball[] = []
-    gravity: Vector2 = new Vector2(0, 5)
+    gravity: Vector2 = new Vector2(0, 350)
 
     step(dt: number) {
         this.checkForBallsCollisions()
@@ -29,6 +30,9 @@ export class World {
 
                     firstBall.callEachModule(module => module.onCollide?.(firstBall, secondBall))
                     secondBall.callEachModule(module => module.onCollide?.(secondBall, firstBall))
+                    firstBall.health--
+                    secondBall.health--
+                    uiObserver.emit()
                 }
             }
         }

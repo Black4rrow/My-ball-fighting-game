@@ -1,9 +1,10 @@
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import GameCanvas from "./components/GameCanvas";
 import GameEngine from "./engine/GameEngine";
 import type RendererInterface from "./model/RendererInterface";
-import Canvas2DRenderer from "./engine/Canvas2DRenderer";
 import PixiRenderer from "./engine/PixiRenderer";
+import BallInfo from "./components/BallInfo";
+import uiObserver from "./model/UIObserver";
 
 function App() {
   const gameEngineRef = useRef<GameEngine>(null);
@@ -12,6 +13,9 @@ function App() {
     gameEngineRef.current = new GameEngine(renderer);
   }
   const gameEngine = gameEngineRef.current;
+
+  const observer = useSyncExternalStore(uiObserver.subscribe, uiObserver.getSnapshot)
+
   return (
     <>
       <section className="flex flex-col items-center h-dvh space-y-1">
@@ -28,6 +32,15 @@ function App() {
         >
           Start Game (test)
         </button>
+        <div className="w-full border border-b-gray-800 my-2"></div>
+        <section className="">
+          <p className="underline">Balls informations</p>
+          <div className="flex flex-row gap-1">
+            {gameEngine.world.balls.map((ball) => (
+              <BallInfo key={ball.id} ball={ball} />
+            ))}
+          </div>
+        </section>
       </section>
     </>
   );

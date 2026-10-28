@@ -3,13 +3,17 @@ import { WORLD_SIZE } from "../engine/Constants";
 import { Vector2 } from "../engine/Vector2";
 import { World } from "../engine/World";
 import type { BallModule } from "./BallModules";
+import {v4} from 'uuid';
 
 export class Ball{
+    id: string = v4()
     center: Vector2
     velocity: Vector2 = Vector2.ZERO
     radius: number = 50
     mass: number = 1
 
+    maxHealth: number = 100
+    health: number = this.maxHealth
     modules: BallModule[] = []
 
     color: Color = new Color('#FF0000')
@@ -21,7 +25,7 @@ export class Ball{
     step(dt: number, world: World){
         if(this.center.x - this.radius <= 0 || this.center.x + this.radius >= WORLD_SIZE) this.velocity = new Vector2(this.velocity.x * -1, this.velocity.y)
         if(this.center.y - this.radius <= 0 || this.center.y + this.radius >= WORLD_SIZE) this.velocity = new Vector2(this.velocity.x, this.velocity.y * -1)
-        this.velocity = this.velocity.add(world.gravity)
+        this.velocity = this.velocity.add(world.gravity.multiply(dt))
         this.center = this.center.add(this.velocity.multiply(dt)).constraint(0 + this.radius, WORLD_SIZE - this.radius, 0 + this.radius, WORLD_SIZE - this.radius)
     }
 
